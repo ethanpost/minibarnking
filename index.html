@@ -734,6 +734,15 @@
       .features-grid { grid-template-columns: 1fr; }
       .price-cards { grid-template-columns: 1fr; }
       .info-boxes { grid-template-columns: 1fr; }
+      .hero-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-actions .btn {
+        flex: 1 1 auto;
+        justify-content: center;
+        min-width: 45%;
+      }
     }
 
     /* ---- ANIMATIONS ---- */
@@ -757,7 +766,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#features">Why Us</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#gallery">Photos</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
@@ -903,7 +912,7 @@
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" aria-label="Close">&times;</button>
-    <img src="" alt="Gallery preview" id="lightboxImg">
+    <img src="" alt="Photos preview" id="lightboxImg">
   </div>
 
   <script>
@@ -966,7 +975,7 @@
     document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
     resetTimer();
 
-    // Gallery
+    // Photos
     const grid = document.getElementById('galleryGrid');
     images.forEach(src => {
       const item = document.createElement('div');
