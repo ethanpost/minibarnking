@@ -177,7 +177,7 @@
       margin-bottom: 2rem;
     }
 
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: nowrap; }
 
     .hero-socials {
       display: flex;
@@ -220,7 +220,8 @@
       font-size: 0.9rem;
       letter-spacing: 0.03em;
       text-decoration: none;
-      padding: 0.85rem 2rem;
+      padding: 0.75rem 1.4rem;
+      white-space: nowrap;
       border-radius: var(--radius);
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.25s, background 0.25s;
@@ -230,25 +231,31 @@
     .btn:hover { transform: translateY(-1px); }
 
     .btn-primary {
-      background: var(--red);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(204, 41, 54, 0.35);
+      background: rgba(255,255,255,0.15);
+      color: #eee;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .btn-primary:hover {
-      background: var(--red-light);
-      box-shadow: 0 6px 28px rgba(204, 41, 54, 0.45);
+      background: rgba(255,255,255,0.28);
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     }
 
     .btn-outline {
-      background: transparent;
-      color: #fff;
-      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.15);
+      color: #eee;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .btn-outline:hover {
-      border-color: var(--blue-light);
-      color: var(--blue-light);
+      background: rgba(255,255,255,0.28);
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     }
 
     .hero-controls {
@@ -474,6 +481,57 @@
 
     .lightbox-close:hover { opacity: 1; }
 
+    /* ---- FORM MODAL ---- */
+    .form-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: none;
+      place-items: center;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .form-modal.open { display: grid; }
+
+    .form-modal-content {
+      position: relative;
+      width: 95vw;
+      max-width: 700px;
+      height: 90vh;
+      background: #fff;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .form-modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .form-modal-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+
+    .form-modal-close:hover { background: var(--red); }
+
     /* ---- PRICING SECTION ---- */
     .pricing-section {
       background: var(--dark);
@@ -600,7 +658,7 @@
 
     .info-boxes {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 1rem;
       max-width: 72rem;
       margin: 2rem auto 0;
@@ -619,6 +677,7 @@
 
     .info-box--green { border-left-color: #3a9e5c; }
     .info-box--orange { border-left-color: #d4872e; }
+    .info-box--red { border-left-color: var(--red); }
 
     .info-box-icon {
       font-size: 1.4rem;
@@ -713,8 +772,10 @@
       <h1 class="hero-title">Shelter Your Livestock<br>the <em>Right</em> Way</h1>
       <p class="hero-sub">Built quick. Delivered ready. Made to move when you need it. The fastest, most affordable livestock sheds and feeders in the region.</p>
       <div class="hero-actions">
-        <a href="#pricing" class="btn btn-primary">See Price List &rarr;</a>
         <a href="#gallery" class="btn btn-outline">Photos</a>
+        <a href="#pricing" class="btn btn-outline">Price List</a>
+        <a href="#contact" class="btn btn-primary">Order/Contact Form</a>
+        <a href="sms:+19312303317" class="btn btn-outline">Or Text 931-230-3317</a>
       </div>
       <div class="hero-socials">
         <a href="https://www.instagram.com/minbarnking" target="_blank" rel="noopener noreferrer" class="hero-social hero-social--instagram">
@@ -770,6 +831,13 @@
     <div class="price-cards" id="priceCards"></div>
     <p class="price-note fade-up">Sales tax applied at 9.75%. Prices subject to change. Custom sizes available upon request.</p>
     <div class="info-boxes">
+      <div class="info-box info-box--red fade-up">
+        <div class="info-box-icon">&#128179;</div>
+        <div class="info-box-body">
+          <h4>Payment Terms</h4>
+          <p>Payment is due at the time of delivery unless otherwise agreed. We accept cash and check; however, checks are only accepted if we can verify that the buyer is the owner of the property at the delivery address. In some cases, a deposit may be required depending on the build or level of customization. Sales tax will be applied where required unless you provide a valid farm tax exemption with proper documentation.</p>
+        </div>
+      </div>
       <div class="info-box fade-up">
         <div class="info-box-icon">&#128666;</div>
         <div class="info-box-body">
@@ -777,18 +845,18 @@
           <p>Free delivery for the first <span class="info-highlight">45 miles</span> (one way). Beyond that, a fee of <span class="info-highlight">$4 per mile</span> applies for each additional mile.</p>
         </div>
       </div>
+      <div class="info-box info-box--orange fade-up">
+        <div class="info-box-icon">&#127912;</div>
+        <div class="info-box-body">
+          <h4>Options</h4>
+          <p>Choose from over 20 color options for siding, roofing, and trim. We offer add-ons like tack rooms, walls, pens, and gates. Pricing for custom features is quoted based on your needs. We'll go over all options with you directly and provide a color sheet to help you choose the right combination.</p>
+        </div>
+      </div>
       <div class="info-box info-box--green fade-up">
         <div class="info-box-icon">&#127793;</div>
         <div class="info-box-body">
           <h4>Farm Tax Exemption</h4>
           <p>These shelters qualify as <span class="info-highlight info-highlight--green">farm tax exempt</span> if you have a current farm exemption ID in the buyer's name. A copy of your exemption (photo is OK) must be provided before we can confirm your tax-exempt total.</p>
-        </div>
-      </div>
-      <div class="info-box info-box--orange fade-up">
-        <div class="info-box-icon">&#127912;</div>
-        <div class="info-box-body">
-          <h4>Options</h4>
-          <p>Choose from over 20 color options for siding, roofing, and trim. We offer add-ons like tack rooms, pens, and gates. Pricing for custom features is quoted based on your needs. We'll go over all options with you directly and provide a color sheet to help you choose the right combination.</p>
         </div>
       </div>
     </div>
@@ -808,9 +876,24 @@
     <div class="section-header fade-up" style="margin-bottom: 0;">
       <h2 class="section-title">Get Your Barn Built</h2>
       <p class="section-desc">Reach out for a free quote or to talk about what you need. We'll get back to you fast.</p>
-      <a href="tel:+15551234567" class="btn btn-primary" style="margin-top: 1.5rem;">Call Us Today &rarr;</a>
+      <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="openFormModal()">Order/Contact Form &rarr;</button>
+        <a href="sms:+19312303317" class="btn btn-outline">Or Message Us at 931-230-3317</a>
+      </div>
     </div>
   </section>
+
+  <!-- FORM MODAL -->
+  <div class="form-modal" id="formModal">
+    <div class="form-modal-content">
+      <button class="form-modal-close" aria-label="Close" onclick="closeFormModal()">&times;</button>
+      <iframe
+        id="formIframe"
+        src="about:blank"
+        title="MINIBARNKING Order/Contact Form"
+      >Loading…</iframe>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -913,8 +996,31 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         lightbox.classList.remove('open');
+        closeFormModal();
         document.body.style.overflow = '';
       }
+    });
+
+    // Form modal
+    const formModal = document.getElementById('formModal');
+    const formIframe = document.getElementById('formIframe');
+    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfbjZk-hJXE9u-MZoOF2fw5HnkIK3iu1ukk703Q0v7NVtv2_Q/viewform?embedded=true';
+
+    function openFormModal() {
+      if (!formIframe.src || !formIframe.src.startsWith('https://')) {
+        formIframe.src = FORM_URL;
+      }
+      formModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFormModal() {
+      formModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    formModal.addEventListener('click', (e) => {
+      if (e.target === formModal) closeFormModal();
     });
 
     // Nav scroll effect
