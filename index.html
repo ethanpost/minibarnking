@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portable Minibarns</title>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #111;
+    }
+
+    .header-slider {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .header-slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      user-select: none;
+    }
+
+    .title {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      margin: 0;
+      padding: 0.5rem 0.75rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 0.5rem;
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+      letter-spacing: 0.03em;
+    }
+
+    .controls {
+      position: absolute;
+      inset: auto 0 1rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .controls button {
+      border: 0;
+      border-radius: 999px;
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.2rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.55);
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background: rgba(0, 0, 0, 0.75);
+    }
+  </style>
+</head>
+<body>
+  <header class="header-slider">
+    <h1 class="title">MinibarnKing</h1>
+    <img id="heroImage" src="" alt="Portable minibarn">
+    <div class="controls">
+      <button id="prevBtn" type="button" aria-label="Previous image">&#10094;</button>
+      <button id="nextBtn" type="button" aria-label="Next image">&#10095;</button>
+    </div>
+  </header>
+
+  <script>
+    const images = [
+      "gallery/68226592434__2A21FDB6-FB48-46A2-93B5-6F62C55F32D0.jpg",
+      "gallery/69143692234__B7EA260E-5A62-4CD7-90C1-15586F8CCECB.jpg",
+      "gallery/IMG_0130.jpg",
+      "gallery/IMG_0132.jpg",
+      "gallery/IMG_2175.jpg",
+      "gallery/IMG_2176.jpg",
+      "gallery/IMG_2395.jpg",
+      "gallery/IMG_7109.jpg",
+      "gallery/IMG_7562.jpg",
+      "gallery/IMG_7820.jpg",
+      "gallery/IMG_8449.jpg",
+      "gallery/IMG_8451.jpg",
+      "gallery/IMG_9530.jpg",
+      "gallery/IMG_9534.jpg",
+      "gallery/IMG_9866.jpg",
+      "gallery/IMG_9936.jpg"
+    ];
+
+    const heroImage = document.getElementById("heroImage");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    let index = 0;
+
+    function renderImage() {
+      heroImage.src = images[index];
+    }
+
+    function nextImage() {
+      index = (index + 1) % images.length;
+      renderImage();
+    }
+
+    function prevImage() {
+      index = (index - 1 + images.length) % images.length;
+      renderImage();
+    }
+
+    prevBtn.addEventListener("click", prevImage);
+    nextBtn.addEventListener("click", nextImage);
+
+    renderImage();
+    setInterval(nextImage, 4500);
+  </script>
+</body>
+</html>
