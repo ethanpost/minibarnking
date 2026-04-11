@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What to Expect After Ordering — MinibarnKing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #cc2936;
+      --red-light: #e04350;
+      --blue: #2c5eab;
+      --blue-light: #3b7dd8;
+      --dark: #0f0f0f;
+      --dark-card: #1a1a1a;
+      --dark-surface: #222;
+      --text: #eaeaea;
+      --text-muted: #999;
+      --radius: 0.5rem;
+      --font-sans: 'Manrope', system-ui, sans-serif;
+      --font-display: 'Manrope', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--dark);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(15, 15, 15, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(204, 41, 54, 0.2);
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.75rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-brand span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ---- LETTER HERO ---- */
+    .letter-hero {
+      position: relative;
+      padding: 12rem 2.5rem 5rem;
+      text-align: center;
+      background: url('gallery/delivery-header.png') center center / cover no-repeat;
+    }
+
+    .letter-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(15,15,15,0.55) 0%, rgba(15,15,15,0.4) 40%, rgba(15,15,15,0.85) 100%),
+        linear-gradient(90deg, rgba(0,0,0,0.3) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .letter-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--red);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-hero h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #fff;
+      max-width: 38rem;
+      margin: 0 auto 1rem;
+    }
+
+    .letter-hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+
+    /* ---- LETTER BODY ---- */
+    .letter-body {
+      max-width: 48rem;
+      margin: 0 auto;
+      padding: 3rem 2.5rem 5rem;
+    }
+
+    /* ---- LETTER SECTION ---- */
+    .letter-section {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 0.75rem;
+      padding: 2.25rem 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-section h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--red);
+    }
+
+    .letter-section p {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .letter-section p:last-child { margin-bottom: 0; }
+
+    .letter-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 1rem 0.25rem;
+    }
+
+    .letter-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.45rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .letter-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* ---- WELCOME INTRO (no card, just warm text) ---- */
+    .letter-welcome {
+      text-align: center;
+      padding: 0 1rem 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .letter-welcome p {
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    /* ---- CHECKLIST CARD ---- */
+    .letter-checklist {
+      background: var(--dark-card);
+      border: 1px solid rgba(204, 41, 54, 0.2);
+      border-left: 4px solid var(--red);
+      border-radius: 0.75rem;
+      padding: 2.25rem 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-checklist h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .letter-checklist p {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 1rem 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding-left: 1.75rem;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .checklist li::before {
+      content: '\2610';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--red-light);
+      font-size: 1.1rem;
+    }
+
+    /* ---- CLOSING ---- */
+    .letter-closing {
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 1rem;
+    }
+
+    .letter-closing h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .letter-closing p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 36rem;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      padding: 0.75rem 1.4rem;
+      white-space: nowrap;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.25s, background 0.25s;
+      border: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(204, 41, 54, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--red-light);
+      box-shadow: 0 4px 20px rgba(204, 41, 54, 0.4);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.08);
+      color: #eee;
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    .closing-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 3rem 2.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    /* ---- ANIMATIONS ---- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav { padding: 0.85rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(15, 15, 15, 0.97);
+        backdrop-filter: blur(12px);
+        padding: 1.5rem;
+        gap: 1.25rem;
+      }
+      .nav-toggle { display: block; }
+      .letter-hero { padding: 9rem 1.25rem 4rem; }
+      .letter-body { padding: 2rem 1.25rem 3.5rem; }
+      .letter-section { padding: 1.75rem 1.5rem; }
+      .letter-checklist { padding: 1.75rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">Minibarn<span>King</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#features">Why Us</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="index.html#gallery">Photos</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="letter-hero">
+    <div class="letter-hero-tag fade-up">Delivery &bull; Setup &bull; What to Know</div>
+    <h1 class="fade-up">What to Expect After Ordering Your Shelter</h1>
+    <p class="fade-up">Helpful information about delivery, placement, anchoring, colors, payment, and final setup.</p>
+  </section>
+
+  <!-- LETTER BODY -->
+  <div class="letter-body">
+
+    <!-- Thank You -->
+    <div class="letter-welcome fade-up">
+      <p>Thank you for your order. We appreciate your business and look forward to getting your shelter delivered and set up. This page will help you know what to expect before delivery and what information we may need from you to make the process go as smoothly as possible.</p>
+    </div>
+
+    <!-- Delivery Vehicle and Site Access -->
+    <div class="letter-section fade-up">
+      <h2>Delivery Vehicle and Site Access</h2>
+      <p>Your shelter will typically arrive on a 24-foot tilt trailer pulled by a 3/4-ton 4WD pickup truck.</p>
+      <p>For the easiest delivery, the location where the shelter will be placed should ideally be accessible by both the truck and trailer, including the path from the road or driveway to the final location.</p>
+      <p>Because the shelter sits high while on the trailer, we need at least <strong>13 feet of overhead clearance</strong> from:</p>
+      <ul class="letter-list">
+        <li>Tree limbs</li>
+        <li>Power lines</li>
+        <li>Other overhead obstructions</li>
+      </ul>
+      <p>If your property has a gate, it must be at least <strong>10 feet wide</strong>, and we need a straight shot at it with the truck and trailer. If the gate is less than 16 feet wide and there is a tight turn involved in getting through it, we may need to unload the shelter and pull it through on the ground.</p>
+      <p>Please let us know ahead of time if your property has any of the following:</p>
+      <ul class="letter-list">
+        <li>Narrow gates (minimum 10 ft wide)</li>
+        <li>Tight turns</li>
+        <li>Soft or wet ground</li>
+        <li>Septic tanks</li>
+        <li>Ditches</li>
+        <li>Berms</li>
+        <li>Steep areas</li>
+        <li>Any other obstacles that could affect delivery</li>
+      </ul>
+      <p>The more we know in advance, the better we can plan for a safe and successful delivery.</p>
+    </div>
+
+    <!-- If the Trailer Cannot Reach the Final Spot -->
+    <div class="letter-section fade-up">
+      <h2>If the Trailer Cannot Reach the Final Spot</h2>
+      <p>If we cannot access the final location with the truck and trailer, we can often unload the shelter and then pull it into place using a tractor or pickup truck.</p>
+      <p>If you have a tractor or suitable pickup available, that can be very helpful. If not, we will disconnect our truck from the trailer and do our best to get the shelter as close as possible to the desired location.</p>
+      <p>In many cases, we are still able to get the shelter exactly where the customer wants it, even if the trailer cannot go all the way in.</p>
+    </div>
+
+    <!-- Difficult Placements -->
+    <div class="letter-section fade-up">
+      <h2>Difficult Placements May Take More Time</h2>
+      <p>Even when we cannot pull the shelter directly to its final location with the truck and trailer, we can often still work it into place by carefully pushing, pulling, and repositioning it.</p>
+      <p>We are usually willing to go the extra mile to help get it where you want it, but difficult placements may require additional time and effort. We simply want customers to know in advance that more challenging setups can take longer than a standard delivery.</p>
+    </div>
+
+    <!-- Anchoring and Shelter Orientation -->
+    <div class="letter-section fade-up">
+      <h2>Anchoring and Shelter Orientation</h2>
+      <p>Once the shelter is in place, we will do our best to anchor it using pressure-treated 2x4 stakes driven into the ground and screwed to the shelter.</p>
+      <p>This works well in many locations, but it is not always possible, especially if the ground is very rocky.</p>
+      <p>If the ground is too rocky for wooden stakes, the customer will need to purchase a different anchoring system. In those cases, options may include:</p>
+      <ul class="letter-list">
+        <li>Steel T-posts driven into the ground and secured to the shelter</li>
+        <li>Another appropriate anchoring system for your site</li>
+      </ul>
+      <p>Please note that special anchoring systems are the customer's responsibility. Our standard practice is to try staking the shelter with treated wooden stakes when ground conditions allow.</p>
+      <p>It is also very important to think about which direction the opening faces. For best protection from prevailing storms and high winds, shelters should ideally have the <strong>opening facing east</strong> when possible, rather than toward the southwest. If that is not possible, a natural or built windbreak is a good idea.</p>
+    </div>
+
+    <!-- Delivery Scheduling and Weather -->
+    <div class="letter-section fade-up">
+      <h2>Delivery Scheduling and Weather</h2>
+      <p>We do our best to schedule delivery as quickly as possible. Delivery timing can depend on several factors, including:</p>
+      <ul class="letter-list">
+        <li>The customer's schedule</li>
+        <li>Driver availability</li>
+        <li>Weather conditions</li>
+        <li>Ground conditions, especially if the shelter is not being placed on a hard surface</li>
+      </ul>
+      <p>We are a small family business, and we work hard to get orders delivered promptly while also making sure deliveries are done safely.</p>
+      <p>If weather has made the ground too soft or conditions are not suitable for reaching the final location, we may recommend placing the shelter temporarily on a driveway or another solid area until conditions improve. In many cases, customers later move the shelter into the final location once the ground is dry or firm.</p>
+      <p>If that happens, we are always happy to share tips and advice for moving the shelter.</p>
+    </div>
+
+    <!-- Payment Terms -->
+    <div class="letter-section fade-up">
+      <h2>Payment Terms</h2>
+      <p>We do accept checks, as long as the delivery address is owned by the person writing the check and we are able to verify that through the property record.</p>
+      <p>If the property ownership cannot be verified, we would prefer cash payment at delivery.</p>
+      <p>If that presents a problem, you may also pay by check in advance, and we can schedule delivery once the check has cleared the bank.</p>
+      <p>We will work out payment details with you before delivery so there are no surprises.</p>
+    </div>
+
+    <!-- Color Selections -->
+    <div class="letter-section fade-up">
+      <h2>Color Selections</h2>
+      <p>If your shelter is not already completed and you are not purchasing one from inventory, we will need your color choices before we begin building.</p>
+      <p>You may choose:</p>
+      <ul class="letter-list">
+        <li>Side color</li>
+        <li>Roof color</li>
+        <li>Trim color</li>
+      </ul>
+      <p>Trim typically includes:</p>
+      <ul class="letter-list">
+        <li>The bottom trim</li>
+        <li>The front edge trim</li>
+        <li>The vertical trim around the opening</li>
+        <li>The upper front trim</li>
+        <li>The ridge cap at the peak of the roof</li>
+      </ul>
+      <p>In most cases, all trim is one color, but we can usually do it however you would like. If you have a certain look in mind, just let us know.</p>
+    </div>
+
+    <!-- Gate-Ready Front Post Option -->
+    <div class="letter-section fade-up">
+      <h2>Gate-Ready Front Post Option</h2>
+      <p>If you plan to hang a gate in your shelter after delivery, please tell us ahead of time.</p>
+      <p>We can add a 4x6 wood piece to the front posts, which gives you much more material to fasten a gate to later. This is something many customers can do themselves after delivery, but we are happy to prepare it in advance if we know you want that option.</p>
+      <p>Gates can often be hung either:</p>
+      <ul class="letter-list">
+        <li>Between the posts</li>
+        <li>On the face of the shelter</li>
+      </ul>
+      <p>This depends on the size of the gate and the size of the shelter.</p>
+    </div>
+
+    <!-- Before Delivery: Helpful Checklist -->
+    <div class="letter-checklist fade-up">
+      <h2>Before Delivery: Helpful Checklist</h2>
+      <p>Before your delivery, please be ready to provide:</p>
+      <ul class="checklist">
+        <li>Your preferred delivery date or scheduling limitations</li>
+        <li>Any access concerns such as gates, soft ground, turns, ditches, septic areas, or overhead obstructions</li>
+        <li>Your final placement location, or a backup drop-off location if weather becomes an issue</li>
+        <li>Your color selections, if your shelter is not already built</li>
+        <li>Whether you want the shelter prepared for a future gate</li>
+        <li>Your expected payment method</li>
+      </ul>
+      <p>If you are unsure about any part of the delivery or setup, just ask. We are always happy to help customers think through the best approach.</p>
+    </div>
+
+    <!-- Closing -->
+    <div class="letter-closing fade-up">
+      <h2>Questions?</h2>
+      <p>Every property is different, and we know some deliveries take a little extra planning. If you have questions about access, placement, colors, anchoring, or payment, please contact us before delivery. We would much rather talk through it ahead of time and help everything go smoothly.</p>
+      <div class="closing-actions">
+        <a href="sms:+19312303317" class="btn btn-primary">Text 931-230-3317</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 MinibarnKing. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
